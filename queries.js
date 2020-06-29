@@ -74,7 +74,7 @@ const deleteUser = (request, response) => {
 const getItems = (request, response) => {
   pool.query('SELECT * FROM items ORDER BY item_id ASC', (error, results) => {
     if (error) {
-      throw error
+      throw error 
     }
     response.status(200).json(results.rows)
   })
@@ -115,7 +115,6 @@ const createManufacturer = (request, response) => {
 }
 
 
-
 /*PURCHASE ORDERS*/
 
 const getPurchaseOrders = (request, response) => {
@@ -129,7 +128,7 @@ const getPurchaseOrders = (request, response) => {
 
 const createPurchaseOrder = async (request, response) => {
   const {user, quantity, manufacturer, item} = request.body
-
+    console.log(request.body)
         
     let results = await pool.query('INSERT INTO purchase_orders (user_id) VALUES ($1) RETURNING *', [user]);
     var purchase_id = results.rows[0].purchase_id
@@ -205,6 +204,16 @@ const getCustomers = (request, response) => {
   })
 }
 
+/*PURCHASE ORDERS LIST */
+
+const getOrderList = (request, response) => {
+  pool.query('select users.fname, users.lname, purchase_orders.date_ordered, purchase_orders.date_received, manufacturers.company_name, items.name, purchase_items.quantity from purchase_items inner join purchase_orders on purchase_orders.purchase_id = purchase_items.purchase_id inner join users on purchase_orders.user_id = users.user_id inner join items on items.item_id = purchase_items.item_id inner join manufacturers on purchase_items.manufacturer_id = manufacturers.manufacturer_id', (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
 
 module.exports = {
     getUsers,
@@ -226,5 +235,7 @@ module.exports = {
     createSalesOrder,
 
     getCustomers,
-    createCustomer
+    createCustomer,
+
+    getOrderList
 }
