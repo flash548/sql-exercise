@@ -204,10 +204,19 @@ const getCustomers = (request, response) => {
   })
 }
 
-/*PURCHASE ORDERS LIST */
+/*PURCHASE/SALES ORDERS LIST TO DISPLAY */
 
 const getOrderList = (request, response) => {
-  pool.query('select users.fname, users.lname, purchase_orders.date_ordered, purchase_orders.date_received, manufacturers.company_name, items.name, purchase_items.quantity from purchase_items inner join purchase_orders on purchase_orders.purchase_id = purchase_items.purchase_id inner join users on purchase_orders.user_id = users.user_id inner join items on items.item_id = purchase_items.item_id inner join manufacturers on purchase_items.manufacturer_id = manufacturers.manufacturer_id', (error, results) => {
+  pool.query('select users.fname, users.lname, purchase_items.purchase_id, purchase_orders.date_ordered, purchase_orders.date_received, manufacturers.company_name, items.name, purchase_items.quantity from purchase_items inner join purchase_orders on purchase_orders.purchase_id = purchase_items.purchase_id inner join users on purchase_orders.user_id = users.user_id inner join items on items.item_id = purchase_items.item_id inner join manufacturers on purchase_items.manufacturer_id = manufacturers.manufacturer_id', (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
+
+const getSalesOrderList = (request, response) => {
+  pool.query('select users.fname, users.lname, sales_orders.date_ordered, sales_orders.date_received, customers.customer_name, items.name, sales_items.quantity from sales_items inner join sales_orders on sales_orders.sales_id = sales_items.sales_id inner join users on sales_orders.user_id = users.user_id inner join customers on customers.customer_id = sales_orders.customer_id inner join items on items.item_id = sales_items.item_id', (error, results) => {
     if (error) {
       throw error
     }
@@ -237,5 +246,6 @@ module.exports = {
     getCustomers,
     createCustomer,
 
-    getOrderList
+    getOrderList,
+    getSalesOrderList
 }

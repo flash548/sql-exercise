@@ -423,6 +423,15 @@ COPY public.purchase_items (id, item_id, purchase_id, quantity, manufacturer_id)
 20	6	35	4	2
 21	6	36	34	3
 22	7	37	50	1
+23	4	40	1	\N
+24	5	40	2	\N
+25	6	42	6	\N
+26	7	42	7	\N
+27	2	43	5	\N
+28	6	43	5	\N
+29	4	44	9	2
+30	6	44	11	3
+31	4	45	33	1
 \.
 
 
@@ -442,6 +451,14 @@ COPY public.purchase_orders (purchase_id, date_ordered, date_received, user_id) 
 35	2020-06-29 12:02:48.30025	2020-06-29 12:02:48.30025	2
 36	2020-06-29 12:03:51.5818	2020-06-29 12:03:51.5818	1
 37	2020-06-29 12:05:33.553674	2020-06-29 12:05:33.553674	1
+38	2020-06-29 16:02:44.602863	2020-06-29 16:02:44.602863	2
+39	2020-06-29 16:07:56.878751	2020-06-29 16:07:56.878751	1
+40	2020-06-29 16:10:41.682598	2020-06-29 16:10:41.682598	2
+41	2020-06-29 16:20:08.216874	2020-06-29 16:20:08.216874	1
+42	2020-06-29 16:24:29.839781	2020-06-29 16:24:29.839781	1
+43	2020-06-29 16:25:40.959205	2020-06-29 16:25:40.959205	2
+44	2020-06-29 16:27:22.37196	2020-06-29 16:27:22.37196	2
+45	2020-06-29 16:43:11.768435	2020-06-29 16:43:11.768435	1
 \.
 
 
@@ -451,6 +468,8 @@ COPY public.purchase_orders (purchase_id, date_ordered, date_received, user_id) 
 
 COPY public.sales_items (id, item_id, sales_id, quantity) FROM stdin;
 1	3	1	1
+2	4	3	5
+3	2	4	5
 \.
 
 
@@ -460,6 +479,9 @@ COPY public.sales_items (id, item_id, sales_id, quantity) FROM stdin;
 
 COPY public.sales_orders (sales_id, date_ordered, date_received, customer_id, user_id) FROM stdin;
 1	2020-06-26 15:39:25.41672	2020-06-26 15:39:25.41672	1	1
+2	2020-06-29 15:15:51.035162	2020-06-29 15:15:51.035162	1	2
+3	2020-06-29 15:39:29.761112	2020-06-29 15:39:29.761112	3	1
+4	2020-06-29 15:41:50.767407	2020-06-29 15:41:50.767407	4	2
 \.
 
 
@@ -499,28 +521,28 @@ SELECT pg_catalog.setval('public.manufacturers_manufacturer_id_seq', 4, true);
 -- Name: purchase_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: me
 --
 
-SELECT pg_catalog.setval('public.purchase_items_id_seq', 22, true);
+SELECT pg_catalog.setval('public.purchase_items_id_seq', 31, true);
 
 
 --
 -- Name: purchase_orders_purchase_id_seq; Type: SEQUENCE SET; Schema: public; Owner: me
 --
 
-SELECT pg_catalog.setval('public.purchase_orders_purchase_id_seq', 37, true);
+SELECT pg_catalog.setval('public.purchase_orders_purchase_id_seq', 45, true);
 
 
 --
 -- Name: sales_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: me
 --
 
-SELECT pg_catalog.setval('public.sales_items_id_seq', 1, true);
+SELECT pg_catalog.setval('public.sales_items_id_seq', 3, true);
 
 
 --
 -- Name: sales_orders_sales_id_seq; Type: SEQUENCE SET; Schema: public; Owner: me
 --
 
-SELECT pg_catalog.setval('public.sales_orders_sales_id_seq', 1, true);
+SELECT pg_catalog.setval('public.sales_orders_sales_id_seq', 4, true);
 
 
 --

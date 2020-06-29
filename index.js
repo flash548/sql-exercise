@@ -40,6 +40,7 @@ app.post('/customers', db.createCustomer)
 app.get('/customers', db.getCustomers)
 
 app.get('/orderList', db.getOrderList)
+app.get('/salesOrderList', db.getSalesOrderList)
 
 
 app.listen(port, () => {
